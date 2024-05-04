@@ -1,0 +1,30 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'libary/css/style_add_topic.css' %}">
+    <title>Add Topic</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-container">
+                <div class="home">
+                    <a href="{% url 'home' %}" class="nav-link">Home</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <h1>Add Topic</h1>
+        <form method="post" class="form-style">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="add-topic-button">Submit</button>
+        </form>
+    </main>
+</body>
+</html>

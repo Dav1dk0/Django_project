@@ -1,0 +1,49 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ video.title }}</title>
+    <link rel="stylesheet" href="{% static 'libary/css/style_video_detail.css' %}">
+</head>
+<body>
+<header>
+        <nav>
+            <div class="nav-container">
+                <div class="home">
+                    <a href="{% url 'home' %}" class="nav-link">Home</a>
+                </div>
+            </div>
+        </nav>
+</header>
+<main>
+    <article>
+        <h1>{{ video.title }}</h1>
+        <video src="{{ video.video_file.url }}" width="960" height="540" controls></video>
+        <p>{{ video.description }}</p>
+        <a href="{% url 'profile_detail' video.user.id %}"><b>{{ video.user.username }}</b></a>
+    </article>
+
+    <section>
+        <form action="{% url 'video_detail' pk=video.pk %}" method="post">
+            {% csrf_token %}
+            <textarea name="text" cols="40" rows="10" required="" id="id_text"></textarea>
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+
+    <section>
+        {% for comment in video.comments.all %}
+            <div class="comment">
+                <a href="{% url 'profile_detail' comment.user.id %}"><strong>{{ comment.user.username }}</strong> <span>{{ comment.created_at }}</span></a>
+                <p>{{ comment.text }}</p>
+            </div>
+        {% empty %}
+            <p>There in no comments</p>
+        {% endfor %}
+    </section>
+</main>
+
+</body>
+</html>

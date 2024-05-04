@@ -1,0 +1,28 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'libary/css/style_add_topic.css' %}">
+    <title>Title</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-container">
+                <div class="home">
+                    <a href="{% url 'home' %}" class="nav-link">Home</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+  <h1>Add video for: {{ topic.title }}</h1>
+  <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Submit</button>
+  </form>
+
+</body>
+</html>

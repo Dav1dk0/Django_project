@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'libary/css/style_topic_detail.css' %}">
+    <title>{{ User.username }}</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-container">
+                <div class="home">
+                    <a href="{% url 'home' %}" class="nav-link">Home</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <h1>{{ user.username }}</h1>
+        <h3>Videos</h3>
+        <article>
+            {% for video in videos %}
+                <section class="video-container">
+                    <a href="{% url 'video_detail' video.id %}">
+                        <h2>{{ video.title }}</h2>
+                        <video src="{{ video.video_file.url }}" width="640" height="360" controls></video>
+                    </a>
+                    <p>{{ video.description }}</p>
+                    <p>{{ topic.created_at }}</p>
+                </section>
+            {% endfor %}
+        </article>
+    </main>
+</body>
+</html>

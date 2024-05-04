@@ -1,0 +1,44 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'libary/css/style.css' %}">
+    <title>Videos</title>
+</head>
+<body>
+    <header>
+    <nav>
+        <div class="nav-container">
+            {% if user.is_authenticated %}
+            <div class="register">
+                <a href="{% url 'logout' %}" class="logout_button">Log Out</a>
+            </div>
+            {% else %}
+            <div class="register">
+                <a href="{% url 'register_user' %}" class="register-button">Sign In</a>
+                <a href="{% url 'login_user' %}" class="login_button">Log In</a>
+            </div>
+            {% endif %}
+            <div class="create">
+                <a href="{% url 'add_topic' %}" class="add-topic-button">New Topic</a>
+            </div>
+
+        </div>
+    </nav>
+</header>
+    <main>
+        {% for topic in topics %}
+            <article>
+                <h2>
+                    <a href="{% url 'topic_detail' topic.id %}">{{ topic.title }}</a>
+                </h2>
+                <p><b>{{ topic.user.username }}</b></p>
+                <p>{{ topic.created_at }}</p>
+            </article>
+        {% endfor %}
+    </main>
+</body>
+</html>

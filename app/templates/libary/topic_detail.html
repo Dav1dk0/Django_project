@@ -1,0 +1,42 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'libary/css/style_topic_detail.css' %}">
+    <title>Videos for Topic</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-container">
+                <div class="home">
+                    <a href="{% url 'home' %}" class="nav-link">Home</a>
+                </div>
+                <div class="create">
+                    <a href="{% url 'add_video_to_topic' topic.id %}" class="add-topic-button">Create video for this topic</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <h1>{{ topic.title }}</h1>
+        <p>{{ topic.description }}</p>
+        <article>
+            {% for video in videos %}
+                <section class="video-container">
+                    <a href="{% url 'video_detail' video.id %}">
+                        <h2>{{ video.title }}</h2>
+                        <video src="{{ video.video_file.url }}" width="640" height="360" controls></video>
+                    </a>
+                    <p>{{ video.description }}</p>
+                    <p><b>{{ video.user.username }}</b></p>
+                    <p>{{ topic.created_at }}</p>
+                </section>
+            {% endfor %}
+        </article>
+    </main>
+</body>
+</html>
